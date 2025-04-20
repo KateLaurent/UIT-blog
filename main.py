@@ -1,5 +1,5 @@
 from datetime import date
-from flask import Flask, abort, render_template, redirect, url_for, flash
+from flask import Flask, abort, render_template, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
@@ -12,6 +12,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import relationship
 # Import your forms from the forms.py
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+import os
 
 
 app = Flask(__name__)
@@ -23,6 +26,15 @@ Bootstrap5(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+load_dotenv()
+
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
+
+mail = Mail(app)
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -256,10 +268,33 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route("/contact")
+@app.route("/contact", methods=["GET", "POST"])
 def contact():
-    return render_template("contact.html", current_user=current_user)
+    if request.method == "POST":
+        name = request.form['name']
+        email = request.form['email']
+        phone = request.form.get('phone', 'Không cung cấp')
+        message = request.form['message']
 
+        # Soạn nội dung email
+        email_message = f"""
+        Bạn nhận được một liên hệ mới:
+
+        Họ và Tên: {name}
+        Email: {email}
+        Số điện thoại: {phone}
+        Nội dung: {message}
+        """
+
+        msg = Message("Liên hệ mới từ Blog",
+                      sender=email,
+                      recipients=["youremail@gmail.com"])  # <-- đổi thành email của bạn
+        msg.body = email_message
+        mail.send(msg)
+
+        return render_template("contact.html", msg_sent=True)
+
+    return render_template("contact.html", msg_sent=False)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
