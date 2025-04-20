@@ -1,0 +1,84 @@
+{% include "header.html" %}
+
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('../static/assets/img/home-bg.jpg')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="site-heading">
+          <h1>Blog Học Tập UIT</h1>
+          <span class="subheading">Nơi chia sẻ kiến thức công nghệ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+  <div class="row gx-4 gx-lg-5 justify-content-center">
+    <div class="col-md-10 col-lg-8 col-xl-7">
+      <!-- Thông báo nếu là admin -->
+      {% if current_user.id == 1 %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <i class="fas fa-user-shield me-2"></i>
+        Bạn đang đăng nhập với quyền quản trị viên
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+
+      <!-- Danh sách bài viết -->
+      {% for post in all_posts %}
+      <div class="post-preview card mb-4 border-0 shadow-sm">
+        <div class="card-body">
+          <a href="{{ url_for('show_post', post_id=post.id) }}" class="text-decoration-none">
+            <h2 class="post-title">{{ post.title }}</h2>
+            <h3 class="post-subtitle text-muted">{{ post.subtitle }}</h3>
+          </a>
+          <div class="post-meta d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <i class="fas fa-user me-1"></i>
+              <a href="#" class="text-decoration-none">{{post.author.name}}</a>
+              <i class="fas fa-calendar-alt ms-3 me-1"></i>
+              {{post.date}}
+            </div>
+            {% if current_user.id == 1 %}
+            <div>
+              <a href="{{url_for('delete_post', post_id=post.id) }}" class="text-danger" title="Xóa bài viết">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <!-- Nút tạo bài viết mới (chỉ hiển thị cho admin) -->
+      {% if current_user.id == 1 %}
+      <div class="d-flex justify-content-end mb-4">
+        <a class="btn btn-primary" href="{{url_for('add_new_post')}}">
+          <i class="fas fa-plus-circle me-2"></i>Tạo Bài Viết Mới
+        </a>
+      </div>
+      {% endif %}
+
+      <!-- Phân trang -->
+      <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+          <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Trang trước</a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#">Trang sau</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+{% include "footer.html" %}

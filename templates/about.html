@@ -1,0 +1,73 @@
+{% include "header.html" %}
+
+<!-- Header -->
+<header class="masthead" style="background-image: url('../static/assets/img/about-bg.jpg')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Giới Thiệu</h1>
+          <span class="subheading">Dự án học thuật IE108 - Đại học UIT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="mb-4">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="text-center mb-5">
+          <img src="../static/assets/img/uit-logo.jpg" alt="Logo UIT" class="img-fluid mb-4" style="max-height: 120px;">
+          <h2>Blog Học Tập IE108</h2>
+          <p class="text-muted">Nền tảng chia sẻ kiến thức công nghệ</p>
+        </div>
+
+        <div class="mb-5">
+          <h3 class="mb-3"><i class="fas fa-rocket me-2"></i>Mục Tiêu Dự Án</h3>
+          <p>
+            Blog được xây dựng nhằm mục đích chia sẻ kiến thức, tài liệu học tập và kết nối sinh viên
+            trong môn học IE108 - Lập trình Web cơ bản tại Trường Đại học Công nghệ Thông tin.
+          </p>
+        </div>
+
+        <div class="row mb-5">
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-users me-2"></i>Đối Tượng</h4>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Sinh viên UIT</li>
+                  <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Giảng viên</li>
+                  <li><i class="fas fa-check-circle text-success me-2"></i>Nhà nghiên cứu</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-body">
+                <h4 class="card-title"><i class="fas fa-cogs me-2"></i>Công Nghệ</h4>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="fab fa-python me-2"></i>Python Flask</li>
+                  <li class="mb-2"><i class="fab fa-bootstrap me-2"></i>Bootstrap 5</li>
+                  <li><i class="fas fa-database me-2"></i>SQLite/PostgreSQL</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-4">
+          <a href="{{ url_for('contact') }}" class="btn btn-primary px-4">
+            <i class="fas fa-envelope me-2"></i>Liên Hệ Với Chúng Tôi
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "footer.html" %}

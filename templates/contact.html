@@ -1,0 +1,74 @@
+{% include "header.html" %}
+
+<!-- Header -->
+<header class="masthead" style="background-image: url('../static/assets/img/contact-bg.jpg')">
+  <div class="container position-relative px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        <div class="page-heading">
+          <h1>Liên Hệ</h1>
+          <span class="subheading">Chúng tôi luôn sẵn sàng hỗ trợ bạn</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Main Content -->
+<main class="mb-4">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+      <div class="col-md-10 col-lg-8 col-xl-7">
+        {% if not msg_sent %}
+        <div class="alert alert-info">
+          <i class="fas fa-clock me-2"></i>
+          Thông tin liên hệ sẽ được phản hồi trong vòng 24 giờ làm việc.
+        </div>
+
+        <form id="contactForm" method="POST">
+          <div class="form-floating mb-3">
+            <input class="form-control" id="name" name="name" type="text" placeholder="Họ và tên" required>
+            <label for="name"><i class="fas fa-user me-2"></i>Họ và Tên</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input class="form-control" id="email" name="email" type="email" placeholder="Email" required>
+            <label for="email"><i class="fas fa-envelope me-2"></i>Địa chỉ Email</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input class="form-control" id="phone" name="phone" type="tel" placeholder="Số điện thoại">
+            <label for="phone"><i class="fas fa-phone me-2"></i>Số Điện Thoại (Tùy chọn)</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <textarea class="form-control" id="message" name="message" placeholder="Nội dung" required style="height: 150px"></textarea>
+            <label for="message"><i class="fas fa-comment me-2"></i>Nội Dung</label>
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-primary btn-lg" type="submit">
+              <i class="fas fa-paper-plane me-2"></i>Gửi Liên Hệ
+            </button>
+          </div>
+        </form>
+        {% else %}
+        <div class="text-center py-5">
+          <div class="mb-4">
+            <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+            <h2>Gửi Thành Công!</h2>
+          </div>
+          <p class="lead">
+            Cảm ơn bạn đã liên hệ. Chúng tôi sẽ phản hồi sớm nhất có thể.
+          </p>
+          <a href="{{ url_for('get_all_posts') }}" class="btn btn-outline-primary mt-3">
+            <i class="fas fa-arrow-left me-2"></i>Trở Về Trang Chủ
+          </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</main>
+
+{% include "footer.html" %}
